@@ -1,0 +1,20 @@
+server:
+  port: 8080 # 后端服务启动的端口号
+
+spring:
+  datasource:
+    # 这里的 apartment_management_db 就是你刚才新建的数据库名
+    url: jdbc:mysql://localhost:3306/apartment_management_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    # ⚠️ 注意：把下面这个 123456 改成你自己在安装 MySQL 时设置的 root 密码！
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: localhost # Redis 的地址
+      port: 6379      # Redis 的端口
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名自动映射

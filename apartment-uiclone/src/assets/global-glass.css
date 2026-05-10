@@ -1,0 +1,116 @@
+/* Global Glassmorphism Overrides for Element Plus */
+
+/* CARDS */
+.el-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 12px !important;
+}
+.el-card__header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* TABLES */
+.el-table, 
+.el-table tr, 
+.el-table th.el-table__cell {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.el-table th.el-table__cell {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #fff !important;
+}
+.el-table td.el-table__cell {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background-color: transparent !important;
+}
+/* 修复斑马纹（Stripe）表格出现纯白底色的问题 */
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+.el-table::before {
+  display: none !important;
+}
+/* 修复悬浮高亮变纯白的问题 */
+.el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* INPUTS, SELECTS & PAGINATION */
+.el-input__wrapper, .el-select__wrapper {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.el-input__inner, .el-select__placeholder {
+  color: #fff !important;
+}
+.el-pagination {
+  --el-pagination-bg-color: transparent !important;
+  --el-pagination-text-color: rgba(255, 255, 255, 0.8) !important;
+  --el-pagination-button-disabled-bg-color: transparent !important;
+}
+.el-pagination button {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+}
+.el-pager li {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.el-pager li.is-active {
+  color: #fff !important;
+  font-weight: bold;
+}
+
+/* DIALOGS / MODALS */
+.el-dialog {
+  background: rgba(30, 35, 50, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 16px !important;
+}
+.el-dialog__title {
+  color: #fff !important;
+}
+
+/* FORMS */
+.el-form-item__label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* COMMON TEXT HEADINGS */
+h1, h2, h3, h4, h5 {
+  color: #fff;
+}
+
+/* DESCRIPTIONS (房源与合同详情等) */
+.el-descriptions {
+  background-color: transparent !important;
+}
+.el-descriptions__body {
+  background-color: transparent !important;
+}
+.el-descriptions__cell {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.el-descriptions__label {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.el-descriptions__content {
+  background-color: transparent !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.el-descriptions .is-bordered .el-descriptions__body {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.el-descriptions .is-bordered {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
