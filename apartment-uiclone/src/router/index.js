@@ -7,7 +7,6 @@ import Contract from '../views/Contract.vue'
 import Bill from '../views/Bill.vue'
 import TenantHome from '../views/TenantHome.vue'
 import TenantBill from '../views/TenantBill.vue'
-import Register from '../views/Register.vue'
 import TenantMarket from '@/views/TenantMarket.vue'
 import Community from '../views/Community.vue'
 import AppService from '../views/AppService.vue'
@@ -28,7 +27,7 @@ const router = createRouter({
         { path: '/bill', component: Bill },
         { path: '/tenant-home', component: TenantHome },
         { path: '/tenant-bill', component: TenantBill },
-        { path: '/register', component: Register },
+
         { path: '/tenant-market', component: TenantMarket },
         { path: '/community', component: Community },
         { path: '/service', component: AppService } // 全新的综合工单路由

@@ -85,7 +85,7 @@ const doc = new Document({
                         new TextRun("介绍用于系统前后端分离架构下的身份认证机制。")
                     ], bullet: { level: 0 }
                 }),
-                
+
                 new Paragraph({ text: "2.2 前端技术", heading: HeadingLevel.HEADING_3 }),
                 new Paragraph({
                     children: [
@@ -146,7 +146,7 @@ const doc = new Document({
                         new TextRun("分析系统界面设计的易用性，公寓管理人员能否快速上手。")
                     ], bullet: { level: 0 }
                 }),
-                
+
                 new Paragraph({ text: "3.2 需求分析", heading: HeadingLevel.HEADING_3 }),
                 new Paragraph({
                     children: [

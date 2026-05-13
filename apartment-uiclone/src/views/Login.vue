@@ -2,11 +2,12 @@
   <div class="login-wrapper">
     <div class="glass-card">
       <div class="login-header">
-        <h2 class="title">公寓管理系统</h2>
-        <p class="subtitle">欢迎回来，请登录您的账号</p>
+        <h2 class="title">{{ isLogin ? '公寓管理系统' : '租客用户注册' }}</h2>
+        <p class="subtitle">{{ isLogin ? '欢迎回来，请登录您的账号' : '填写以下信息加入我们' }}</p>
       </div>
       
-      <el-form :model="loginForm" class="login-form" label-position="top">
+      <!-- Login Form -->
+      <el-form v-if="isLogin" :model="loginForm" class="login-form" label-position="top">
         <el-form-item label="账号">
           <el-input 
             v-model="loginForm.username" 
@@ -40,7 +41,47 @@
         </el-button>
 
         <div class="register-prompt">
-          还没有账号？ <el-link type="primary" :underline="false" @click="$router.push('/register')">立即注册</el-link>
+          还没有账号？ <el-link type="primary" :underline="false" @click="isLogin = false">立即注册</el-link>
+        </div>
+      </el-form>
+
+      <!-- Register Form -->
+      <el-form v-else :model="regForm" class="register-form" label-position="top">
+        <el-form-item label="手机号">
+          <el-input 
+            v-model="regForm.username" 
+            placeholder="请输入手机号" 
+            size="large"
+            class="custom-input"
+          />
+        </el-form-item>
+        
+        <el-form-item label="登录密码">
+          <el-input 
+            v-model="regForm.password" 
+            type="password" 
+            placeholder="请输入密码" 
+            size="large"
+            show-password 
+            class="custom-input"
+          />
+        </el-form-item>
+        
+        <el-form-item label="真实姓名">
+          <el-input 
+            v-model="regForm.realName" 
+            placeholder="请输入真实姓名" 
+            size="large"
+            class="custom-input"
+          />
+        </el-form-item>
+
+        <el-button type="primary" @click="handleRegister" size="large" class="submit-btn" :loading="regLoading" style="margin-top: 10px;">
+          立即注册
+        </el-button>
+        
+        <div class="login-prompt">
+          已有账号？ <el-link type="primary" :underline="false" @click="isLogin = true">返回登录</el-link>
         </div>
       </el-form>
     </div>
@@ -57,10 +98,19 @@ import { User, Lock } from '@element-plus/icons-vue'
 const router = useRouter()
 const rememberMe = ref(true) // 持久化账号信息标识
 const loading = ref(false)
+const regLoading = ref(false)
+const isLogin = ref(true) // 控制显示登录还是注册
 
 const loginForm = reactive({
   username: '',
   password: ''
+})
+
+const regForm = reactive({
+  username: '',
+  password: '',
+  realName: '',
+  phone: ''
 })
 
 onMounted(() => {
@@ -109,6 +159,31 @@ const handleLogin = async () => {
     loading.value = false
   }
 }
+
+// 执行用户注册业务逻辑
+const handleRegister = async () => {
+  if (!regForm.username || !regForm.password || !regForm.realName) {
+    return ElMessage.warning('请完善注册信息')
+  }
+
+  // 默认手机号字段与账号一致
+  regForm.phone = regForm.username 
+  
+  regLoading.value = true
+  try {
+    const res = await axios.post('http://localhost:8080/api/users/register', regForm)
+    if (res.data === '注册成功，请登录') {
+      ElMessage.success(res.data)
+      isLogin.value = true // 注册成功后切换回登录
+    } else {
+      ElMessage.error(res.data || '注册失败，请检查输入')
+    }
+  } catch (error) {
+    ElMessage.error('系统接口调用异常')
+  } finally {
+    regLoading.value = false
+  }
+}
 </script>
 
 <style scoped>
@@ -137,6 +212,7 @@ const handleLogin = async () => {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   animation: slideUpFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   color: #fff;
+  transition: all 0.3s ease;
 }
 
 @keyframes slideUpFadeIn {
@@ -170,8 +246,14 @@ const handleLogin = async () => {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.login-form {
+.login-form, .register-form {
   width: 100%;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 :deep(.el-form-item__label) {
@@ -256,20 +338,20 @@ const handleLogin = async () => {
   transform: translateY(0);
 }
 
-.register-prompt {
+.register-prompt, .login-prompt {
   text-align: center;
   margin-top: 24px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.7);
 }
 
-.register-prompt .el-link {
+.register-prompt .el-link, .login-prompt .el-link {
   color: #a3bffa !important;
   font-weight: 500;
   margin-left: 4px;
 }
 
-.register-prompt .el-link:hover {
+.register-prompt .el-link:hover, .login-prompt .el-link:hover {
   color: #ffffff !important;
 }
 </style>
